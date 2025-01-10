@@ -1,0 +1,29 @@
+{
+  "name": "antd-vue-pro-vite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
+    "@antv/g2": "^5.2.10",
+    "@antv/g2plot": "^2.4.32",
+    "@antv/l7": "^2.22.3",
+    "@antv/l7-maps": "^2.22.3",
+    "ant-design-vue": "~4.2.6",
+    "numeral": "^2.0.6",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/numeral": "^2.0.5",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "unplugin-vue-components": "^0.27.5",
+    "vue-tsc": "^2.2.0"
+  }
+}
