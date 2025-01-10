@@ -54,12 +54,7 @@
 //     }
 // }
 
-interface StorageLike {
-    setItem(key: string, value: string): void;
-    getItem(key: string): string | null;
-    removeItem(key: string): void;
-    clear(): void;
-}
+import type { StorageLike } from './type'
 
 interface StorageConfig {
     beforeSetItem?: (key: string, value: unknown) => [string, unknown] | void;
@@ -305,6 +300,8 @@ class StorageProxy<T extends StorageLike> {
 //     const expiredUser = proxy.storage.getItem<{ name: string; age: number }>('user');
 //     console.log(expiredUser);  // 输出：null（数据已过期）
 // }, 6000);
+
+export { StorageLike }
 
 export default StorageProxy
 

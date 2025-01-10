@@ -1,30 +1,13 @@
-## TypeScript Library
-
-## The Problem
-
-## This Solution
-
-## Install
-
-```sh
-  yarn add library
-```
+## @pnpm-monorepo-vite/request
 
 ## Usage
 
 ```typescript
-import { sum } from "sum";
+import { message } from "ant-design-vue";
+import server, { useMessage } from "@pnpm-monorepo-vite/request";
 
-sum(1, 2); // 3
+useMessage(message)
+
+const { request, cancelAllRequest, cancelRequest } = server({ baseURL: import.meta.env.BASE_URL, })
 ```
 
-## API
-
-### Input :
-
-- a: number (required)
-- b: number (required)
-
-### Output :
-
-c : number

@@ -1,30 +1,94 @@
 ## TypeScript Library
 
-## The Problem
-
-## This Solution
-
-## Install
-
-```sh
-  yarn add library
-```
-
 ## Usage
 
 ```typescript
-import { sum } from "sum";
+import StorageProxy, { StorageLike } from "@pnpm-monorepo-vite/cache";
 
-sum(1, 2); // 3
+class MyStorage implements StorageLike {
+    private store: Record<string, any> = {};
+
+    setItem(key: string, value: any): void {
+        this.store[key] = value;
+    }
+
+    getItem<T = any>(key: string): T {
+        return this.store[key] || null;
+    }
+
+    removeItem(key: string): void {
+        delete this.store[key];
+    }
+
+    clear(): void {
+        this.store = {};  // 清空所有存储项
+    }
+}
+
+// 创建自定义存储对象
+const myStorage = new MyStorage();
+
+// 创建 StorageProxy 实例
+const proxy = StorageProxy.getInstance(myStorage, {
+    dataTimeout: 5000,  // 设置数据超时为5秒
+});
+
+// 存储一个对象
+const user = { name: 'Alice', age: 30 };
+proxy.storage.setItem('user', user);
+
+// 获取数据并指定类型
+const storedUser = proxy.storage.getItem<{ name: string; age: number }>('user');
+console.log(storedUser);  // 输出：{ name: 'Alice', age: 30 }
+
+// 等待数据超时
+setTimeout(() => {
+    const expiredUser = proxy.storage.getItem<{ name: string; age: number }>('user');
+    console.log(expiredUser);  // 输出：null（数据已过期）
+}, 6000);
 ```
 
 ## API
+```typescript
+interface StorageLike {
+    setItem(key: string, value: string): void;
+    getItem(key: string): string | null;
+    removeItem(key: string): void;
+    clear(): void;
+}
+interface StorageConfig {
+    beforeSetItem?: (key: string, value: unknown) => [string, unknown] | void;
+    afterGetItem?: <T>(key: string, value: string | null) => T | null;
+    ttl?: number;
+    autoCleanInterval?: number;
+}
+declare class StorageProxy<T extends StorageLike> {
+    private _storage;
+    private originalSetItem;
+    private originalGetItem;
+    private originalRemoveItem;
+    private originalClear;
+    private ttl;
+    private autoCleanInterval;
+    private cleanIntervalId;
+    private beforeSetItem;
+    private afterGetItem;
+    private static instance;
+    get storage(): T;
+    constructor(storage: T, config?: StorageConfig);
+    private proxyMethods;
+    private serialize;
+    private deserialize;
+    static getInstance<T extends StorageLike>(storage: T, config?: StorageConfig): StorageProxy<T>;
+    unProxy(): void;
+    private clearExpiredItems;
+    private startAutoClean;
+    private removeItem;
+    getCacheStats(): {
+        totalItems: number;
+        expiredItems: number;
+        activeItems: number;
+    };
+}
+```
 
-### Input :
-
-- a: number (required)
-- b: number (required)
-
-### Output :
-
-c : number
