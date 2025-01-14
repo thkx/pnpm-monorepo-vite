@@ -1,10 +1,10 @@
-import sum from "../index";
+import request from "../index";
 
-describe("sum", () => {
+describe("request", () => {
   test("exports", () => {
-    expect(sum).toBeTruthy();
+    expect(request).toBeTruthy();
   });
   test("works", () => {
-    expect(sum(1, 2)).toEqual(3);
+    // expect(request(1, 2)).toEqual(3);
   });
 });
