@@ -13,7 +13,6 @@
     "build:cache": "cd packages/cache && pnpm run build",
     "build:request": "cd packages/request && pnpm run build",
     "build:utils": "cd packages/utils && pnpm run build",
-    "server:project-nest": "cd apps/project-nest && pnpm run start:dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
