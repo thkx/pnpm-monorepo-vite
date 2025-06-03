@@ -200,6 +200,10 @@ getFakeList()
     transition: color 0.3s;
 }
 
+.team a:hover {
+    color: var(--color-customization);
+}
+
 .team .ant-avatar {
     margin-right: 12px;
 }

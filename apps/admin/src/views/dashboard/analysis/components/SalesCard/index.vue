@@ -333,7 +333,7 @@ onUnmounted(() => {
 }
 
 .salesCard .salesExtra a:hover {
-    color: #1890ff;
+    color: var(--color-customization);
 }
 
 /* .salesCard .salesExtra a.currentDate {

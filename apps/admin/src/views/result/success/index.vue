@@ -33,6 +33,10 @@ import { reactive, toRefs, h } from 'vue'
 
 import { DingdingOutlined } from '@ant-design/icons-vue'
 
+import { usePermission } from '@/store/permission';
+
+const permission = usePermission()
+
 const state = reactive({
     title: '提交成功',
     sub_title: "提交结果页用于反馈一系列操作任务的处理结果， 如果仅是简单操作，使用 Message 全局提示反馈即可。 本文字区域可以展示简单的补充说明，如果有类似展示 “单据”的需求，下面这个灰色区域可以呈现比较复杂的内容。",
@@ -43,7 +47,8 @@ const state = reactive({
             description: h('div', [
                 h('div', { style: { margin: '8px 0 4px' } }, [
                     h('span', '曲丽丽'),
-                    h(DingdingOutlined, { style: { marginLeft: '8px', color: '#00A0E9' } })
+                    // h(DingdingOutlined, { style: { marginLeft: '8px', color: '#00A0E9' } })
+                    h(DingdingOutlined, { style: { marginLeft: '8px', color: permission.themeColor.value } })
                 ]),
                 h('div', '2016-12-12 12:32')
             ]),
@@ -55,7 +60,8 @@ const state = reactive({
                     h('div', { style: { margin: '8px 0 4px' } }, [
                         h('span', '周毛毛'),
                         h('a', [
-                            h(DingdingOutlined, { style: { marginLeft: '8px', color: '#00A0E9' } }),
+                            // h(DingdingOutlined, { style: { marginLeft: '8px', color: '#00A0E9' } }),
+                            h(DingdingOutlined, { style: { marginLeft: '8px', color: permission.themeColor.value } }),
                             h('span', '催一下')
                         ])
                     ]),

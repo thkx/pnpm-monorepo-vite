@@ -7,6 +7,8 @@ type Settings = {
 
     title: string
     logo: string
+
+    themeColor: string
 }
 
 export type IPermission = {
@@ -14,6 +16,6 @@ export type IPermission = {
     routes: any[] | ConcatArray<RouteRecordRaw>
     addRoutes: any[] | ConcatArray<RouteRecordRaw>
     defaultRoutes: any[] | ConcatArray<RouteRecordRaw>
-    topbarRouters: any[] | ConcatArray<RouteRecordRaw>
-    sidebarRouters: any[] | ConcatArray<RouteRecordRaw>
+    topBarRouters: any[] | ConcatArray<RouteRecordRaw>
+    sideBarRouters: any[] | ConcatArray<RouteRecordRaw>
 } & Settings

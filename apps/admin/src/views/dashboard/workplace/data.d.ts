@@ -1,6 +1,6 @@
 
 
-export interface TagType {
+export type TagType = {
     key: string;
     label: string;
 }
@@ -18,7 +18,7 @@ export type OfflineDataType = {
     cvr: number;
 };
 
-export interface RadarData {
+export type RadarData = {
     name: string;
     label: string;
     value: number;
@@ -38,14 +38,8 @@ export type AnalysisData = {
 };
 
 export type GeographicType = {
-    province: {
-        label: string;
-        key: string;
-    };
-    city: {
-        label: string;
-        key: string;
-    };
+    province: TagType;
+    city: TagType;
 };
 
 export type NoticeType = {

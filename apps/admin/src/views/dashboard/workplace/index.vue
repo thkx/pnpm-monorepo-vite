@@ -452,7 +452,7 @@ onUnmounted(() => {
 }
 
 .projectList .cardTitle a:hover {
-    color: #1890ff;
+    color: var(--color-customization);
 }
 
 .projectList .projectGrid {
@@ -485,7 +485,7 @@ onUnmounted(() => {
 }
 
 .projectList .projectItemContent a:hover {
-    color: #1890ff;
+    color: var(--color-customization);
 }
 
 .datetime {
@@ -521,6 +521,6 @@ onUnmounted(() => {
 }
 
 .members a:hover {
-    color: #1890ff;
+    color: var(--color-customization);
 }
 </style>

@@ -7,7 +7,11 @@
                         <div style="display: flex;height: 26px;">
                             <QuestionCircleOutlined />
                         </div>
-
+                    </div>
+                    <div class="ant-pro-global-header-header-actions-item" @click="showDrawer">
+                        <div style="display: flex;height: 26px;">
+                            <SettingOutlined />
+                        </div>
                     </div>
                     <div class="ant-pro-global-header-header-actions-item">
 
@@ -27,29 +31,37 @@
                             <template #overlay>
                                 <a-menu @click="handleMenuClick" v-model:selectedKeys="selectedKeys">
                                     <a-menu-item key="🇧🇩">
-                                        <a href="javascript:;"><span aria-label="বাংলা">🇧🇩</span>বাংলা</a>
+                                        <a href="javascript:;"><span style="margin-right: 8px;"
+                                                aria-label="বাংলা">🇧🇩</span>বাংলা</a>
                                     </a-menu-item>
                                     <a-menu-item key="🇺🇸">
-                                        <a href="javascript:;"><span aria-label="English">🇺🇸</span>English</a>
+                                        <a href="javascript:;"><span style="margin-right: 8px;"
+                                                aria-label="English">🇺🇸</span>English</a>
                                     </a-menu-item>
                                     <a-menu-item key="🇮🇷">
-                                        <a href="javascript:;"><span aria-label="فارسی">🇮🇷</span>فارسی</a>
+                                        <a href="javascript:;"><span style="margin-right: 8px;"
+                                                aria-label="فارسی">🇮🇷</span>فارسی</a>
                                     </a-menu-item>
 
                                     <a-menu-item key="🇮🇩">
-                                        <a href="javascript:;"><span aria-label="Bahasa Indonesia">🇮🇩</span>Bahasa Indonesia</a>
+                                        <a href="javascript:;"><span style="margin-right: 8px;"
+                                                aria-label="Bahasa Indonesia">🇮🇩</span>Bahasa Indonesia</a>
                                     </a-menu-item>
                                     <a-menu-item key="🇯🇵">
-                                        <a href="javascript:;"><span aria-label="日本語">🇯🇵</span>日本語</a>
+                                        <a href="javascript:;"><span style="margin-right: 8px;"
+                                                aria-label="日本語">🇯🇵</span>日本語</a>
                                     </a-menu-item>
                                     <a-menu-item key="🇧🇷">
-                                        <a href="javascript:;"><span aria-label="Português">🇧🇷</span>Português</a>
+                                        <a href="javascript:;"><span style="margin-right: 8px;"
+                                                aria-label="Português">🇧🇷</span>Português</a>
                                     </a-menu-item>
                                     <a-menu-item key="🇨🇳">
-                                        <a href="javascript:;"><span aria-label="简体中文">🇨🇳</span>简体中文</a>
+                                        <a href="javascript:;"><span style="margin-right: 8px;"
+                                                aria-label="简体中文">🇨🇳</span>简体中文</a>
                                     </a-menu-item>
                                     <a-menu-item key="🇭🇰">
-                                        <a href="javascript:;"><span aria-label="繁體中文">🇭🇰</span>繁體中文</a>
+                                        <a href="javascript:;"><span style="margin-right: 8px;"
+                                                aria-label="繁體中文">🇭🇰</span>繁體中文</a>
                                     </a-menu-item>
                                 </a-menu>
                             </template>
@@ -83,23 +95,42 @@
             </div>
         </div>
     </div>
+
+    <a-drawer width="300" placement="right" :closable="false" :open="open" @close="onClose">
+        <div style="background-color: #f5222d;height: 45px;cursor: pointer;" value="#f5222d" @click="handleTheme">
+            #f5222d
+        </div>
+        <br />
+        <div style="background-color: #1890ff;height: 45px;cursor: pointer;" value="#1890ff" @click="handleTheme">
+            #1890ff
+        </div>
+        <br />
+        <a-input type="color" :value="themeColor" @change="handleTheme" />
+    </a-drawer>
 </template>
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
-import { QuestionCircleOutlined, LogoutOutlined } from '@ant-design/icons-vue';
+import { QuestionCircleOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons-vue';
 
 import type { MenuProps } from 'ant-design-vue';
 import { useRouter } from 'vue-router';
 
-import { useUserStore } from '@/store/user'
+import { usePermission } from '@/store/permission';
+import { useUserStore } from '@/store/user';
+
+// import { } from '@/utils/utils';
 
 const router = useRouter()
 const selectedKeys = ref(['1'])
 
+const permission = usePermission()
 const userStore = useUserStore()
 
 const info = computed(() => userStore.info.value)
+const themeColor = computed(() => permission.themeColor.value)
+
+const open = ref<boolean>(false);
 
 function getPopupContainer(triggerNode: any) {
     return triggerNode
@@ -113,6 +144,42 @@ const handleMenuClick: MenuProps['onClick'] = (e) => {
         router.push('/login')
     }
 }
+
+const showDrawer = () => {
+    open.value = true;
+};
+const onClose = () => {
+    console.log(permission.themeColor.value)
+    open.value = false;
+};
+
+function rgbToHex(rgb: { match: (arg0: RegExp) => { (): any; new(): any; map: { (arg0: NumberConstructor): [any, any, any]; new(): any; }; }; }) {
+    // 将 RGB 字符串分割成三个数字
+    const [r, g, b] = rgb.match(/\d+/g).map(Number);
+
+    // 将每个数字转换为十六进制，并补零到两位
+    const hexR = r.toString(16).padStart(2, '0');
+    const hexG = g.toString(16).padStart(2, '0');
+    const hexB = b.toString(16).padStart(2, '0');
+
+    // 返回十六进制颜色代码
+    return `#${hexR}${hexG}${hexB}`;
+}
+
+
+const handleTheme = (e: Event) => {
+    // console.log(e)
+    const target = e.target as any;
+
+    if (target) {
+        const color = target.style.backgroundColor || target.value;
+        console.log(color);
+
+        permission.setThemeColor(color.includes('#') ? color : rgbToHex(color));
+    }
+
+    // document.documentElement.style.setProperty('--ant-primary-color', color);
+};
 
 </script>
 

@@ -18,7 +18,7 @@
                         </keep-alive>
                     </transition>
                 </router-view> -->
-                <router-view v-slot="{ Component }">
+                <router-view v-slot="{ Component }" :key="key">
                     <keep-alive :include="cachedViews">
                         <Suspense :fallback="null">
                             <component :is="Component" :key="key" />

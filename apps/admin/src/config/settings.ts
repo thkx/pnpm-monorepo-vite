@@ -5,4 +5,5 @@ export default {
     collapsed: false,
     collapsedWidth: 64,
     width: 256,
+    themeColor: '#1890ff',
 }

@@ -259,6 +259,6 @@ const onDrop = (info: AntTreeNodeDropEvent) => {
 }
 
 .ant-pro-table-list-toolbar-setting-item:hover {
-    color: #1890ff;
+    color: var(--color-customization);
 }
 </style>

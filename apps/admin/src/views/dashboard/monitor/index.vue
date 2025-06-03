@@ -95,7 +95,7 @@
     </a-row>
 </template>
 <script lang="ts" setup>
-import { ref, nextTick, reactive, toRefs, onMounted, onUnmounted } from "vue";
+import { ref, reactive, toRefs, onMounted, onUnmounted } from "vue";
 
 import { HeatmapLayer, PointLayer, Scene, RasterLayer } from "@antv/l7";
 import { Mapbox } from "@antv/l7-maps";
@@ -107,6 +107,7 @@ import { Chart } from '@antv/g2';
 import { queryTags } from "./service";
 
 import numeral from "numeral";
+import { TagType } from "./data.d";
 
 function fixedZero(val: number) {
     return val * 1 < 10 ? `0${val}` : val;
@@ -163,7 +164,7 @@ const loopData = () => {
             areaPlot?.value?.changeData(activeData.value).then(resp => {
                 console.log(resp)
             }).catch(err => {
-                console.log(err)
+                // console.log(err)
             })
             loopData();
         }, 2000);
@@ -201,7 +202,7 @@ async function getTags() {
     }
 }
 
-function setWordCloud(data) {
+function setWordCloud(data: TagType[]) {
     // nextTick(() => {
 
     const chart = new Chart({
@@ -225,7 +226,7 @@ function setWordCloud(data) {
 
     chart.render()
 
-    wordCloudPlot.value = chart
+    wordCloudPlot!.value = chart
     // })
 
     // <WordCloud
@@ -268,7 +269,7 @@ function setLiquid() {
     chart.liquid().data(0.35);
     chart.render();
 
-    liquidPlot.value = chart
+    liquidPlot!.value = chart
 }
 
 function setGauge() {
@@ -298,7 +299,7 @@ function setGauge() {
 
     chart.render();
 
-    gaugePlot.value = chart
+    gaugePlot!.value = chart
 }
 
 function setArea() {
@@ -394,7 +395,8 @@ function setMap() {
             pitch: 0,
             style: 'blank',
             zoom: 1,
-        })
+        }),
+        logoVisible: false,
 
     });
 
@@ -590,10 +592,10 @@ onUnmounted(() => {
         cancelAnimationFrame(requestRef.value);
     }
 
-    liquidPlot.value?.destroy()
-    gaugePlot.value?.destroy()
-    areaPlot.value?.destroy()
-    wordCloudPlot.value?.destroy()
+    liquidPlot!.value?.destroy()
+    gaugePlot!.value?.destroy()
+    areaPlot!.value?.destroy()
+    wordCloudPlot!.value?.destroy()
 
     liquidContainer.value = null
     gaugeContainer.value = null

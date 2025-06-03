@@ -13,7 +13,7 @@
 import Logo from './logo.vue';
 import Actions from './actions.vue';
 
-defineProps<{logo: string, title: string}>()
+defineProps<{ logo: string, title: string }>()
 </script>
 
 <style scoped>

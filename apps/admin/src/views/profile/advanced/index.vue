@@ -142,8 +142,12 @@ import { EllipsisOutlined, DingdingOutlined, InfoCircleOutlined } from '@ant-des
 
 import ProPageHeader from '@/components/ProPageHeader';
 
+import { usePermission } from '@/store/permission';
+
 import { advanced } from './service';
 import type { AdvancedProfileData, AdvancedOperation } from './data.d';
+
+const permission = usePermission()
 
 const columns = [
     {
@@ -196,7 +200,8 @@ const state = reactive({
             description: h('div', [
                 h('div', { style: { margin: '8px 0 4px' } }, [
                     h('span', '曲丽丽'),
-                    h(DingdingOutlined, { style: { marginLeft: '8px', color: '#00A0E9' } })
+                    // h(DingdingOutlined, { style: { marginLeft: '8px', color: '#00A0E9' } })
+                    h(DingdingOutlined, { style: { marginLeft: '8px', color: permission.themeColor.value } })
                 ]),
                 h('div', '2016-12-12 12:32')
             ]),
@@ -208,7 +213,8 @@ const state = reactive({
                     h('div', { style: { margin: '8px 0 4px' } }, [
                         h('span', '周毛毛'),
                         h('a', [
-                            h(DingdingOutlined, { style: { marginLeft: '8px', color: '#00A0E9' } }),
+                            // h(DingdingOutlined, { style: { marginLeft: '8px', color: '#00A0E9' } }),
+                            h(DingdingOutlined, { style: { marginLeft: '8px', color: permission.themeColor.value } }),
                             h('span', '催一下')
                         ])
                     ]),

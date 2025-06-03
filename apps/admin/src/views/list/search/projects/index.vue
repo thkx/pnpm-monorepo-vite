@@ -182,7 +182,8 @@ getList()
 }
 
 .projectsList .card:hover .ant-card-meta-title>a {
-    color: #1890ff;
+    /* color: #1890ff; */
+    color: var(--color-customization);
 }
 </style>
 

@@ -20,7 +20,7 @@ const modules = import.meta.glob('../../views/**/*.vue')
 // console.log(modules)
 
 // 遍历后台传来的路由字符串，转换为组件对象
-function filterAsyncRouter(asyncRouterMap: any[], lastRouter = false, type = false) {
+function filterAsyncRouter(asyncRouterMap: any[], _lastRouter = false, type = false) {
     return asyncRouterMap.filter(route => {
         if (type && route.children) {
             // console.log(lastRouter)
@@ -84,7 +84,7 @@ export function filterDynamicRoutes(routes: any[]) {
     const res: any = []
     routes.forEach(route => {
         if (route.permissions) {
-            if (auth.hasPermiOr(route.permissions)) {
+            if (auth.hasPermissionOr(route.permissions)) {
                 res.push(route)
             }
         } else if (route.roles) {
@@ -115,15 +115,17 @@ const state = reactive<IPermission>({
     title: settings.title,
     logo: settings.logo,
 
+    themeColor: settings.themeColor,
+
     rootSubmenuKeys: [],
     routes: [],
     addRoutes: [],
     defaultRoutes: [],
-    topbarRouters: [],
-    sidebarRouters: [],
+    topBarRouters: [],
+    sideBarRouters: [],
 })
 
-const { collapsed, collapsedWidth, width, title, logo, rootSubmenuKeys, routes, addRoutes, defaultRoutes, topbarRouters, sidebarRouters } = toRefs(state)
+const { collapsed, collapsedWidth, width, title, logo, themeColor, rootSubmenuKeys, routes, addRoutes, defaultRoutes, topBarRouters, sideBarRouters } = toRefs(state)
 
 function setCollapsed(value: boolean) {
     collapsed.value = value
@@ -144,12 +146,26 @@ function setDefaultRoutes(routers: any[] | ConcatArray<RouteRecordRaw>, constant
     defaultRoutes.value = constant_routes.concat(routers)
 }
 
-function setTopbarRoutes(routers: any[]) {
-    topbarRouters.value = routers
+function setTopBarRoutes(routers: any[]) {
+    topBarRouters.value = routers
 }
 
-function setSidebarRouters(routers: RouteRecordRaw[]) {
-    sidebarRouters.value = routers
+function setSideBarRouters(routers: RouteRecordRaw[]) {
+    sideBarRouters.value = routers
+}
+
+function getThemeColor() {
+    const theme = sessionStorage.getItem('theme')
+    if (theme) {
+        themeColor.value = theme;
+    }
+    return themeColor.value
+}
+
+function setThemeColor(value: string) {
+    themeColor.value = value;
+    document.getElementById('app')?.style.setProperty('--color-customization', value);
+    sessionStorage.setItem('theme', value)
 }
 
 function generateRoutes() {
@@ -173,18 +189,18 @@ function generateRoutes() {
 
         // 向后端请求路由数据
         // getRouters().then((res: any) => {
-        //     const sdata = JSON.parse(JSON.stringify(res.data))
-        //     const rdata = JSON.parse(JSON.stringify(res.data))
+        //     const s_data = JSON.parse(JSON.stringify(res.data))
+        //     const r_data = JSON.parse(JSON.stringify(res.data))
         //     const defaultData = JSON.parse(JSON.stringify(res.data))
-        //     const sidebarRoutes = filterAsyncRouter(sdata)
-        //     const rewriteRoutes = filterAsyncRouter(rdata, false, true)
+        //     const sidebarRoutes = filterAsyncRouter(s_data)
+        //     const rewriteRoutes = filterAsyncRouter(r_data, false, true)
         //     const defaultRoutes = filterAsyncRouter(defaultData)
         //     const asyncRoutes = filterDynamicRoutes(dynamicRoutes)
         //     asyncRoutes.forEach((route: any) => { router.addRoute(route) })
         //     setRoutes(rewriteRoutes, [...constantRoutes])
         //     setSidebarRouters([...constantRoutes].concat(sidebarRoutes))
         //     setDefaultRoutes(sidebarRoutes, [...constantRoutes])
-        //     setTopbarRoutes(defaultRoutes)
+        //     setTopBarRoutes(defaultRoutes)
         //     resolve(rewriteRoutes)
         // })
     })
@@ -205,6 +221,6 @@ function getRootSubmenuKeys(mock_routes: RouteRecordRaw[] | any[]) {
 }
 
 export function usePermission() {
-    return { collapsed, collapsedWidth, width, title, logo, rootSubmenuKeys, routes, addRoutes, defaultRoutes, topbarRouters, sidebarRouters, setCollapsed, setRootSubmenuKeys, setRoutes, setDefaultRoutes, setTopbarRoutes, setSidebarRouters, generateRoutes }
+    return { collapsed, collapsedWidth, width, title, logo, themeColor, rootSubmenuKeys, routes, addRoutes, defaultRoutes, topBarRouters, sideBarRouters, setCollapsed, setRootSubmenuKeys, setRoutes, setDefaultRoutes, setTopBarRoutes, setSideBarRouters, setThemeColor, getThemeColor, generateRoutes }
 }
 

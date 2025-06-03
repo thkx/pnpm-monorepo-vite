@@ -6,7 +6,7 @@
                     段落示意：蚂蚁金服务设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，
                     提供跨越设计与开发的体验解决方案。
                 </p>
-                <div class="content-link">
+                <!-- <div class="content-link">
                     <a>
                         <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/MjEImQtenlyueSmVEfUD.svg" />
                         快速开始
@@ -17,6 +17,21 @@
                     </a>
                     <a>
                         <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg" />
+                        产品文档
+                    </a>
+                </div> -->
+
+                <div class="content-link svg-list">
+                    <a>
+                        <Start :fill="permission.themeColor.value" class="svg"></Start>
+                        快速开始
+                    </a>
+                    <a>
+                        <Profile :fill="permission.themeColor.value" class="svg"></Profile>
+                        产品简介
+                    </a>
+                    <a>
+                        <Document :fill="permission.themeColor.value" class="svg"></Document>
                         产品文档
                     </a>
                 </div>
@@ -58,7 +73,7 @@
                         </a-card-meta>
                     </a-card>
                 </a-list-item>
-                
+
             </template>
 
         </a-list>
@@ -70,9 +85,14 @@ import { PlusOutlined } from '@ant-design/icons-vue';
 
 import ProPageHeader from '@/components/ProPageHeader';
 
+import { usePermission } from '@/store/permission';
+
+import { Start, Profile, Document } from './components';
+
 import { queryCardFakeList } from './service';
 import { CardListItemDataType } from './data.d';
 
+const permission = usePermission()
 
 const state = reactive<{ loading: boolean, data: CardListItemDataType[] }>({
     loading: false,
@@ -123,6 +143,20 @@ p {
     vertical-align: middle;
     margin-top: -3px;
     width: 24px;
+}
+
+.content .svg-list {
+    display: flex;
+    justify-items: center;
+}
+
+.content .svg-list a {
+    display: flex;
+    margin-right: 36px;
+}
+
+.content .svg-list a .svg {
+    margin-right: 12px;
 }
 
 .cardAvatar {
