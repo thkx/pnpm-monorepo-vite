@@ -77,7 +77,7 @@
 
 </template>
 <script lang="ts" setup>
-import { ref, reactive, computed, defineEmits } from "vue";
+import { ref, reactive, computed } from "vue";
 import { ReloadOutlined, ColumnHeightOutlined, SettingOutlined, HolderOutlined, QuestionCircleOutlined } from "@ant-design/icons-vue";
 
 import type { AntTreeNodeDragEnterEvent, AntTreeNodeDropEvent, TreeProps } from 'ant-design-vue/es/tree';

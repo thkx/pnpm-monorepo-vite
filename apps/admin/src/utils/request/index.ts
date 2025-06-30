@@ -54,3 +54,7 @@ const { request, cancelAllRequest, cancelRequest } = server({ baseURL: import.me
 
 export { request, cancelAllRequest, cancelRequest }
 
+export function to<T>(promise: Promise<T>): Promise<[Error | null, T | undefined]> {
+    return promise.then<[null, T]>((data: T) => [null, data]).catch<[Error, undefined]>((err: Error) => [err, undefined])
+}
+

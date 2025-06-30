@@ -8,7 +8,7 @@ import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 
 // https://vite.dev/config/
 export default defineConfig((env: ConfigEnv) => {
-  // console.log(env)
+  console.log(env)
   return {
     plugins: [
       vue(),
@@ -37,7 +37,7 @@ export default defineConfig((env: ConfigEnv) => {
       }
     },
 
-    //fix:error:stdin>:7356:1: warning: "@charset" must be the first rule in the file
+    // fix:error:stdin>:7356:1: warning: "@charset" must be the first rule in the file
     css: {
       postcss: {
         plugins: [

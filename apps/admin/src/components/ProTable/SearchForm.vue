@@ -52,7 +52,7 @@
 
 </template>
 <script lang="ts" setup>
-import { reactive, ref, defineEmits, useSlots, computed, SetupContext } from 'vue';
+import { reactive, ref, useSlots, computed, SetupContext } from 'vue';
 import { DownOutlined, UpOutlined } from '@ant-design/icons-vue';
 import type { FormInstance } from 'ant-design-vue';
 
